@@ -12,9 +12,12 @@ import Input from '../../../shared/components/input';
 import SubmitBtn from '../../../shared/components/submitBtn';
 import Wrapper from '../../../shared/components/wrapper';
 import {
+  addNewProduct,
   COLORS,
   GST,
+  ProductSchema,
   setUserSession,
+  showToast,
   SignupSchema,
 } from '../../../shared/exporter';
 import styles from './styles';
@@ -38,17 +41,24 @@ const AddProduct = ({navigation}: any) => {
     setShowImagePicker(!showImagePicker);
   };
 
-  const submitHandler = ({email, password}: any, {setSubmitting}: any) => {
-    dispatch(setUserSession(true));
-    setSubmitting(false);
+  const submitHandler = ({title, price, desc}: any, {setSubmitting}: any) => {
+    if (productImage) {
+      dispatch(addNewProduct({title, price, desc, image: productImage}));
+      setSubmitting(false);
+      showToast('Success', 'Product has been added successfully!', true);
+      navigation.goBack();
+    } else {
+      setSubmitting(false);
+      showToast('Error', 'Select product photo!', false);
+    }
   };
 
   return (
-    <Wrapper headerTitle={'Sign up'}>
+    <Wrapper backBtn headerTitle={'Add New Product'}>
       <View style={GST.MAINT_CONTAINER}>
         <Formik
           initialValues={initialValues}
-          validationSchema={SignupSchema}
+          validationSchema={ProductSchema}
           onSubmit={submitHandler}>
           {({
             values,
@@ -78,11 +88,12 @@ const AddProduct = ({navigation}: any) => {
                 value={values.price}
                 placeholder={'Price'}
                 leftIcon={dollar}
+                keyboardType={'decimal-pad'}
                 onChangeText={handleChange('price')}
                 returnKeyType={'next'}
                 blurOnSubmit={false}
                 onSubmitEditing={() => descRef.current.focus()}
-                error={touched.title && errors.title ? errors.title : ''}
+                error={touched.price && errors.price ? errors.price : ''}
               />
               <Input
                 multiline
@@ -94,18 +105,17 @@ const AddProduct = ({navigation}: any) => {
                 returnKeyType={'done'}
                 blurOnSubmit={false}
                 onSubmitEditing={handleSubmit}
-                error={touched.title && errors.title ? errors.title : ''}
+                error={touched.desc && errors.desc ? errors.desc : ''}
               />
               <ImageBanner
-                text={'Upload your logo here'}
+                text={'Upload photo here'}
                 source={productImage}
                 onPress={toggleImagePicker}
-                resizeMode={'contain'}
               />
               <CustomImageCropPicker
                 visible={showImagePicker}
                 toggleImagePicker={toggleImagePicker}
-                getSource={(image: Source) => setProductImage(image.uri)}
+                getSource={(image: any) => setProductImage(image.path)}
               />
               <SubmitBtn title={'Add'} onPress={handleSubmit} />
               <CustomLoading visible={isSubmitting} />

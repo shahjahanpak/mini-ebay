@@ -1,7 +1,9 @@
 export {navigate, navigationRef} from './services/NavService';
+export {showToast} from './services/HelperService';
 export {setUserSession} from './redux/reducers/userReducer';
+export {addNewProduct} from './redux/reducers/mainReducer';
 export {store, persistor} from './redux/store';
-export {LoginSchema, SignupSchema} from './utils/validations';
+export {LoginSchema, SignupSchema, ProductSchema} from './utils/validations';
 export {ROUTES} from './utils/routes';
 export {COLORS} from './theme/colors';
 export {FONTS} from './theme/fonts';

@@ -12,9 +12,18 @@ interface Props {
   price: number;
   onPress?: () => void;
   listView?: boolean;
+  sample?: boolean;
 }
 
-const ProductCard = ({image, title, price, desc, onPress, listView}: Props) => {
+const ProductCard = ({
+  image,
+  title,
+  price,
+  desc,
+  onPress,
+  listView,
+  sample,
+}: Props) => {
   return (
     <Pressable
       style={[styles.productCardMainContainer, listView && styles.divider]}
@@ -25,7 +34,7 @@ const ProductCard = ({image, title, price, desc, onPress, listView}: Props) => {
           listView && styles.listViewImgContainer,
         ]}>
         <FastImage
-          source={image}
+          source={sample ? image : {uri: image}}
           style={styles.productImg}
           resizeMode={'contain'}
         />

@@ -13,12 +13,12 @@ export const mainReducer = createSlice({
   name: 'main',
   initialState,
   reducers: {
-    setProducts: (state, action) => {
-      state.products = action.payload;
+    addNewProduct: (state, action) => {
+      state.products.unshift(action.payload);
     },
   },
 });
 
-export const {setProducts} = mainReducer.actions;
+export const {addNewProduct} = mainReducer.actions;
 
 export default mainReducer.reducer;

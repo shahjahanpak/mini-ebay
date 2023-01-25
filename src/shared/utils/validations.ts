@@ -28,3 +28,9 @@ export const SignupSchema = Yup.object().shape({
     .required('Confirm Password Required')
     .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
+
+export const ProductSchema = Yup.object().shape({
+  title: Yup.string().required('Title Required'),
+  price: Yup.string().required('Price Required'),
+  desc: Yup.string().required('Description Required'),
+});

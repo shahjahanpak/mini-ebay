@@ -1,12 +1,12 @@
 import React from 'react';
-import {Pressable, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Pressable, StyleSheet, TouchableOpacity} from 'react-native';
 import {Overlay} from 'react-native-elements';
 import FastImage, {Source} from 'react-native-fast-image';
 import ImagePicker from 'react-native-image-crop-picker';
 import {camera, closeIcon, gallary} from '../../../assets/icons';
-import {COLORS, GST, RF} from '../../exporter';
+import {COLORS, RF} from '../../exporter';
 import CustomText from '../customText';
-const {COBALT, WHITE, SEA_BLUE} = COLORS;
+const {SILVER, WHITE, SEA_BLUE} = COLORS;
 
 interface Props {
   cropping?: boolean;
@@ -30,7 +30,6 @@ const CustomImageCropPicker = ({
   visible,
   toggleImagePicker,
   getSource,
-  includeVideo,
   multiple = false,
 }: Props) => {
   const PICKER_OPTIONS: any = {
@@ -38,8 +37,7 @@ const CustomImageCropPicker = ({
     height: 500,
     cropping,
     multiple,
-    mediaType: includeVideo ? 'any' : 'photo',
-    includeBase64: true,
+    mediaType: 'photo',
   };
 
   const cameraPressHandler = () => {
@@ -75,7 +73,7 @@ const CustomImageCropPicker = ({
         icon={gallary}
         onPress={gallaryPressHandler}
         color={SEA_BLUE}
-        bgColor={COBALT}
+        bgColor={SILVER}
       />
       <Pressable style={styles.closeContainer} onPress={toggleImagePicker}>
         <FastImage source={closeIcon} style={styles.closeIcon} />
